@@ -1,0 +1,16 @@
+*.o
+*.a
+*.so
+*.swo
+*.swp
+main
+
+# Folders
+_obj
+_test
+.vscode
+.idea/
+.project
+
+# Test
+*.xlsx
