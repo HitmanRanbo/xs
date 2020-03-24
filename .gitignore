@@ -9,8 +9,6 @@ main
 _obj
 _test
 .vscode
-.idea/
+.idea
 .project
 
-# Test
-*.xlsx

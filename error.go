@@ -61,7 +61,7 @@ type LackColError struct {
 }
 
 func (e *LackColError) Error() string {
-	return fmt.Sprintf("第%d行的%s字段值为空", e.Row, e.Header)
+	return fmt.Sprintf("%d row %s col is nil", e.Row, e.Header)
 }
 
 type LackHeaderError struct {

@@ -60,10 +60,10 @@ func GetTagInfo(s interface{}) TagInfoMap {
 		header, format, isHyperLink := getHeaderAndFormat(tag[0])
 		if len(tag) > 1 && tag[1] == OMITEMPTY {
 			headers = append(headers, header)
-			m[header] = TagInfo{Index: i, Format: format, IsHyperlink: isHyperLink, Omitempty: false}
+			m[header] = TagInfo{Index: i, Format: format, IsHyperlink: isHyperLink, Omitempty: true}
 		} else {
 			headers = append(headers, header)
-			m[header] = TagInfo{Index: i, Format: format, IsHyperlink: isHyperLink, Omitempty: true}
+			m[header] = TagInfo{Index: i, Format: format, IsHyperlink: isHyperLink, Omitempty: false}
 		}
 	}
 	return TagInfoMap{Headers: headers, M: m}

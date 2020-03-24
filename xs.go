@@ -38,10 +38,12 @@ func Marshal(ss ...interface{}) ([]byte, error) {
 
 func unmarshal(xlFile *xlsx.File, ss ...interface{}) error {
 	//检查sheet数和结构体的数目
+	//check if the num of sheet equals to the num of slice
 	if len(xlFile.Sheets) != len(ss) {
 		return &SheetAndSLiceMismatched{len(xlFile.Sheets), len(ss)}
 	}
 	//空文件不处理
+	//do not process empty file
 	if len(xlFile.Sheets) == 0 {
 		return nil
 	}
@@ -52,6 +54,7 @@ func unmarshal(xlFile *xlsx.File, ss ...interface{}) error {
 		var sValues = reflect.ValueOf(s)
 
 		//s应该是一个array或者slice的指针
+		//s should be array or slice of ptr
 		if sValues.Kind() != reflect.Ptr || sValues.IsNil() {
 			return &InvalidUnmarshalError{Type: reflect.TypeOf(s)}
 		}
@@ -60,7 +63,8 @@ func unmarshal(xlFile *xlsx.File, ss ...interface{}) error {
 		}
 
 		//逐行读xlsx文件，并转化成结构体
-		mList := make([]map[string]*xlsx.Cell, sheet.MaxRow, sheet.MaxRow)
+		//preprocess excel
+		mList := make([]map[string]*xlsx.Cell, sheet.MaxRow-1, sheet.MaxRow-1)
 		for i, row := range sheet.Rows {
 			if i == 0 {
 				continue
@@ -74,7 +78,7 @@ func unmarshal(xlFile *xlsx.File, ss ...interface{}) error {
 				}
 				m[tag] = row.Cells[tagInfo.M[tag].Index]
 			}
-			mList[i] = m
+			mList[i-1] = m
 		}
 		err := decode(mList, tagInfo, s)
 		if err != nil {
