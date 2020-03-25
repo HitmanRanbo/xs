@@ -67,9 +67,6 @@ type User2 struct {
 	Salary   float64 `xs:"Salary"`
 }
 
-var users = []
-var users2 = make([]User2, 0)
-
 users := []User{{"Karl", 25, "Male"}, {"Ann", 18, "Female"}}
 users2 := []User2{{"Karl", 8000.00}, {"Ann", 9999.50}}
 
