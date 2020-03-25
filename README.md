@@ -14,9 +14,9 @@ Requirements
 Index
 ------
 
-1. [Examples <a name="examples"></a>](#examples)
-   2. [Unmarshal <a name="unmarshal"></a>](#unmarshal)
-   3. [Marshal <a name="marshal"></a>](#marshal)
+1. [Examples](#examples)
+	1. [Unmarshal <a name="unmarshal"></a>](#unmarshal)
+   	2. [Marshal <a name="marshal"></a>](#marshal)
 
 Examples <a name="examples"></a>
 --------
