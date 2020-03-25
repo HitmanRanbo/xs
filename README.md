@@ -15,13 +15,13 @@ Index
 ------
 
 1. [Examples](#examples)
-	1. [Unmarshal <a name="unmarshal"></a>](#unmarshal)
-   	2. [Marshal <a name="marshal"></a>](#marshal)
+	1. [Unmarshal](#examples_unmarshal)
+   	2. [Marshal](#examples_marshal)
 
 Examples <a name="examples"></a>
 --------
 
-### Unmarshal <a name="unmarshal"></a>
+### Unmarshal <a name="examples_unmarshal"></a>
 **If you wan to get message from a excel file like this:**
 
 ![Excel file](example/excel.png "Excel")
@@ -52,7 +52,7 @@ err = Unmarshal(body, &users)
 **Both method is ok. But you should ensure that there is no empty row at the end of excel**
 
 
-### Marshal <a name="marshal"></a>
+### Marshal <a name="examples_marshal"></a>
 **The other way round, if you want to write a excel from go struct slice, you can use Marshal**
 #### Mutiple sheet
 ```golang
