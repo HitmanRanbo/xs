@@ -6,16 +6,17 @@ import (
 	"reflect"
 )
 
+//encode write a xlsx.sheet from slice of struct
 func encode(sheet *xlsx.Sheet, tagInfo TagInfoMap, sValues reflect.Value) {
-	//首行
+	//write header
 	row := sheet.AddRow()
 	for _, tag := range tagInfo.Headers {
 		row.AddCell().Value = tag
 	}
 
-	//遍历所有行
+	//loop slice and write xlsx.sheet row by row
 	for line := 0; line < sValues.Len(); line++ {
-		//行初始化
+		//init row
 		sheetRow := sheet.AddRow()
 		sheetRow.Cells = make([]*xlsx.Cell, len(tagInfo.Headers), len(tagInfo.Headers))
 

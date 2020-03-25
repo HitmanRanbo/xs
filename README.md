@@ -14,11 +14,12 @@ Requirements
 Index
 ------
 
-1. [Example](#examples)
-   2. [Unmarshal](#unmarshal)
-   3. [Marshal](#marshal)
+1. [Examples <a name="examples"></a>](#examples)
+   2. [Unmarshal <a name="unmarshal"></a>](#unmarshal)
+   3. [Marshal <a name="marshal"></a>](#marshal)
 
-## Examples <a name="examples"></a>
+Examples <a name="examples"></a>
+--------
 
 ### Unmarshal <a name="unmarshal"></a>
 **If you wan to get message from a excel file like this:**

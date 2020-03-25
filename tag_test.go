@@ -9,7 +9,7 @@ import (
 func TestGetTags(t *testing.T) {
 	t.Parallel()
 	type L struct {
-		A int     `xs:"a"`
+		A int     `xs:"a,omitempty"`
 		B float64 `xs:"b:0.00%"`
 		C string  `xs:"c:hyperlink"`
 	}
