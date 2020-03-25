@@ -1,6 +1,15 @@
 xs
 =================
 
+Installation
+------------
+
+    go get github.com/KarlTango/xs
+
+Requirements
+-------------
+
+* github.com/tealeg/xlsx
 
 Index
 ------

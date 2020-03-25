@@ -18,7 +18,7 @@ func TestUnmarshalFromFile(t *testing.T) {
 	filePath := "example/test.xlsx"
 	err := UnmarshalFromFile(filePath, &users)
 	assert.NoError(t, err)
-	assert.Len(t, users, 4, "test.xlsx contain 4 col, and users does not contain")
+	assert.Len(t, users, 4, "test.xlsx contain 4 row, and users does not contain")
 	assert.Equal(t, users[3].Username, "Ann")
 }
 
@@ -29,7 +29,7 @@ func TestUnmarshal(t *testing.T) {
 	assert.NoError(t, err)
 	err = Unmarshal(body, &users)
 	assert.NoError(t, err)
-	assert.Len(t, users, 4, "test.xlsx contain 4 col, and users does not contain")
+	assert.Len(t, users, 4, "test.xlsx contain 4 row, and users does not contain")
 	assert.Equal(t, users[3].Username, "Ann")
 }
 

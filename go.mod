@@ -1,4 +1,4 @@
-module xs
+module github.com/KarlTango/xs
 
 go 1.13
 
