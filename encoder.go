@@ -1,9 +1,11 @@
 package xs
 
 import (
+	"database/sql"
 	"fmt"
 	"github.com/tealeg/xlsx"
 	"reflect"
+	"time"
 )
 
 //encode write a xlsx.sheet from slice of struct
@@ -24,20 +26,40 @@ func encode(sheet *xlsx.Sheet, tagInfo TagInfoMap, sValues reflect.Value) {
 		for _, v := range tagInfo.Headers {
 			cell := &xlsx.Cell{}
 			data := row.Field(tagInfo.M[v].Index)
-			switch data.Kind() {
-			case reflect.Int:
-				cell.SetInt(data.Interface().(int))
-			case reflect.Int64:
-				cell.SetInt64(data.Interface().(int64))
-			case reflect.String:
-				cell.SetString(data.Interface().(string))
-				if tagInfo.M[v].IsHyperlink {
-					cell.SetFormula(fmt.Sprintf(`HYPERLINK("%s","%s")`, data.Interface().(string), data.Interface().(string)))
+			switch t := data.Interface().(type) {
+			case time.Time:
+				cell.SetValue(t)
+			case fmt.Stringer: // check Stringer first
+				cell.SetString(t.String())
+			case sql.NullString: // check null sql types nulls = ''
+				if cell.SetString(``); t.Valid {
+					cell.SetValue(t.String)
 				}
-			case reflect.Float64:
-				cell.SetFloat(data.Interface().(float64))
+			case sql.NullBool:
+				if cell.SetString(``); t.Valid {
+					cell.SetBool(t.Bool)
+				}
+			case sql.NullInt64:
+				if cell.SetString(``); t.Valid {
+					cell.SetValue(t.Int64)
+				}
+			case sql.NullFloat64:
+				if cell.SetString(``); t.Valid {
+					cell.SetValue(t.Float64)
+				}
 			default:
-				cell.SetString(fmt.Sprintf("%v", data))
+				switch data.Kind() {
+				case reflect.String, reflect.Int, reflect.Int8,
+					reflect.Int16, reflect.Int32, reflect.Int64, reflect.Float64, reflect.Float32:
+					cell.SetValue(data.Interface())
+					if tagInfo.M[v].IsHyperlink {
+						cell.SetFormula(fmt.Sprintf(`HYPERLINK("%s","%s")`, data.Interface().(string), data.Interface().(string)))
+					}
+				case reflect.Bool:
+					cell.SetBool(t.(bool))
+				default:
+					cell.SetString(fmt.Sprintf("%v", data))
+				}
 			}
 			if tagInfo.M[v].Format != "" {
 				cell.SetFormat(tagInfo.M[v].Format)
@@ -45,5 +67,4 @@ func encode(sheet *xlsx.Sheet, tagInfo TagInfoMap, sValues reflect.Value) {
 			sheetRow.Cells[tagInfo.M[v].Index] = cell
 		}
 	}
-
 }

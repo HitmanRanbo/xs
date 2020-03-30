@@ -74,9 +74,10 @@ func Test_Xs(t *testing.T) {
 	err = ioutil.WriteFile("tmp.xlsx", body, 06666)
 	assert.NoError(t, err)
 
+	//the length of struct slice can be less than the num of sheets
 	newL0 := make([]L, 0)
 	err = UnmarshalFromFile("tmp.xlsx", &newL0)
-	assert.Error(t, err)
+	assert.NoError(t, err)
 
 	newL1 := make([]L, 0)
 	err = UnmarshalFromFile("tmp.xlsx", &newL0, &newL1)
@@ -86,4 +87,8 @@ func Test_Xs(t *testing.T) {
 	assert.Equal(t, newL0[1].C, "http://www.github.com/1")
 	assert.Equal(t, newL1[1].C, "http://www.github.com/1")
 
+	//the length of struct slice should not be less than the num of sheets
+	newL2 := make([]L, 0)
+	err = UnmarshalFromFile("tmp.xlsx", &newL0, &newL1, &newL2)
+	assert.Error(t, err)
 }

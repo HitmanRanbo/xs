@@ -68,3 +68,15 @@ func GetTagInfo(s interface{}) TagInfoMap {
 	}
 	return TagInfoMap{Headers: headers, M: m}
 }
+
+//parse tags. return map[string]bool, which key is tag and value is if the tag is necessary
+func GetTags(s interface{}) map[string]bool {
+	var headers = make(map[string]bool, 0)
+	var tagInfo = GetTagInfo(s)
+
+	for _, header := range tagInfo.Headers {
+		headers[header] = !tagInfo.M[header].Omitempty
+	}
+
+	return headers
+}
