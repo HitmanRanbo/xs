@@ -14,14 +14,14 @@ Requirements
 Index
 ------
 
-1. [Examples <a name="examples"></a>](#examples)
-   2. [Unmarshal <a name="unmarshal"></a>](#unmarshal)
-   3. [Marshal <a name="marshal"></a>](#marshal)
+1. [Examples](#examples)
+	1. [Unmarshal](#examples_unmarshal)
+   	2. [Marshal](#examples_marshal)
 
 Examples <a name="examples"></a>
 --------
 
-### Unmarshal <a name="unmarshal"></a>
+### Unmarshal <a name="examples_unmarshal"></a>
 **If you wan to get message from a excel file like this:**
 
 ![Excel file](example/excel.png "Excel")
@@ -52,7 +52,7 @@ err = Unmarshal(body, &users)
 **Both method is ok. But you should ensure that there is no empty row at the end of excel**
 
 
-### Marshal <a name="marshal"></a>
+### Marshal <a name="examples_marshal"></a>
 **The other way round, if you want to write a excel from go struct slice, you can use Marshal**
 #### Mutiple sheet
 ```golang
@@ -66,9 +66,6 @@ type User2 struct {
 	Username string  `xs:"Username"`
 	Salary   float64 `xs:"Salary"`
 }
-
-var users = []
-var users2 = make([]User2, 0)
 
 users := []User{{"Karl", 25, "Male"}, {"Ann", 18, "Female"}}
 users2 := []User2{{"Karl", 8000.00}, {"Ann", 9999.50}}
