@@ -49,7 +49,6 @@ filePath := "example/test.xlsx"
 body, _ := ioutil.ReadFile(filePath)
 err = Unmarshal(body, &users)
 ```
-**Both method is ok. But you should ensure that there is no empty row at the end of excel**
 
 
 ### Marshal <a name="examples_marshal"></a>
