@@ -7,11 +7,11 @@ go:
 env:
   - GO111MODULE=on
 
-services:
-  - docker
-
 script:
-  - make ci
+ - go vet ./...
+ - go install ./...
+ - go test -race -v ./... -coverprofile=coverage.txt -covermode=atomic
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
+
