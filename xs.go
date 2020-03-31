@@ -51,6 +51,7 @@ func unmarshal(xlFile *xlsx.File, ss ...interface{}) error {
 
 	for sheetIndex, s := range ss {
 		sheet := xlFile.Sheets[sheetIndex]
+		maxRow := getMaxNoneEmptyRow(*sheet)
 		tagInfo := GetTagInfo(s)
 		headerIndexMap, err := genHeaderIndexMap(tagInfo, sheet.Rows[0])
 		if err != nil {
@@ -69,38 +70,20 @@ func unmarshal(xlFile *xlsx.File, ss ...interface{}) error {
 
 		//逐行读xlsx文件，并转化成结构体
 		//preprocess excel
-		mList := make([]map[string]*xlsx.Cell, 0)
-		for i, row := range sheet.Rows {
-			if i == 0 {
-				continue
-			}
-
-			//the first empty row is the last row of the sheet
-			var lastRow bool
-
+		mList := make([]map[string]*xlsx.Cell, maxRow, maxRow)
+		for i := 0; i < maxRow; i++ {
+			row := sheet.Rows[i+1]
 			m := make(map[string]*xlsx.Cell, len(tagInfo.Headers))
 			for _, tag := range tagInfo.Headers {
 
 				//check if NonOmitempty tag could get the value
 				if !tagInfo.M[tag].Omitempty && row.Cells[headerIndexMap[tag]].String() == "" {
-					for _, cell := range row.Cells {
-						//not empty row
-						if cell.String() != "" {
-							return &LackColError{i, tag}
-						}
-					}
-					//empty row
-					lastRow = true
-					break
+					return &LackColError{i, tag}
 				} else {
 					m[tag] = row.Cells[headerIndexMap[tag]]
 				}
 			}
-			if lastRow {
-				break
-			}
-
-			mList = append(mList, m)
+			mList[i] = m
 		}
 		err = decode(mList, tagInfo, s)
 		if err != nil {
@@ -150,4 +133,16 @@ func genHeaderIndexMap(tagInfoMap TagInfoMap, xlsxHeader *xlsx.Row) (map[string]
 	}
 
 	return headerIndexMap, nil
+}
+
+func getMaxNoneEmptyRow(sheet xlsx.Sheet) int {
+	var marRow = 0
+	for i, row := range sheet.Rows {
+		for _, cell := range row.Cells {
+			if cell.String() != "" {
+				marRow = i
+			}
+		}
+	}
+	return marRow
 }
