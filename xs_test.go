@@ -14,12 +14,18 @@ type User struct {
 }
 
 func TestUnmarshalFromFile(t *testing.T) {
+	//test function
 	var users = make([]User, 0)
 	filePath := "example/test.xlsx"
 	err := UnmarshalFromFile(filePath, &users)
 	assert.NoError(t, err)
 	assert.Len(t, users, 4, "test.xlsx contain 4 row, and users does not contain")
 	assert.Equal(t, users[3].Username, "Ann")
+
+	//test error
+	var inter interface{}
+	err = UnmarshalFromFile(filePath, inter)
+	assert.Error(t, err)
 }
 
 func TestUnmarshal(t *testing.T) {

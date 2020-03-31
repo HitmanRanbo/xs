@@ -64,6 +64,13 @@ func (e *LackColError) Error() string {
 	return fmt.Sprintf("%d row %s col is nil", e.Row, e.Header)
 }
 
+type EmptySheetError struct {
+}
+
+func (e *EmptySheetError) Error() string {
+	return fmt.Sprintf("empty sheet")
+}
+
 type LackHeaderError struct {
 	Header string
 }

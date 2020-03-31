@@ -50,14 +50,6 @@ func unmarshal(xlFile *xlsx.File, ss ...interface{}) error {
 	}
 
 	for sheetIndex, s := range ss {
-		sheet := xlFile.Sheets[sheetIndex]
-		maxRow := getMaxNoneEmptyRow(*sheet)
-		tagInfo := GetTagInfo(s)
-		headerIndexMap, err := genHeaderIndexMap(tagInfo, sheet.Rows[0])
-		if err != nil {
-			return err
-		}
-
 		//s应该是一个array或者slice的指针
 		//s should be array or slice of ptr
 		sValues := reflect.ValueOf(s)
@@ -66,6 +58,14 @@ func unmarshal(xlFile *xlsx.File, ss ...interface{}) error {
 		}
 		if sValues.Type().Elem().Kind() != reflect.Slice {
 			return &InvalidUnmarshalError{Type: sValues.Type()}
+		}
+
+		sheet := xlFile.Sheets[sheetIndex]
+		maxRow := getMaxNoneEmptyRow(*sheet)
+		tagInfo := GetTagInfo(s)
+		headerIndexMap, err := genHeaderIndexMap(tagInfo, *sheet)
+		if err != nil {
+			return err
 		}
 
 		//逐行读xlsx文件，并转化成结构体
@@ -112,8 +112,14 @@ func marshal(ss ...interface{}) (*xlsx.File, error) {
 	return excel, nil
 }
 
-func genHeaderIndexMap(tagInfoMap TagInfoMap, xlsxHeader *xlsx.Row) (map[string]int, error) {
+func genHeaderIndexMap(tagInfoMap TagInfoMap, sheet xlsx.Sheet) (map[string]int, error) {
 	var headerIndexMap = make(map[string]int)
+
+	//check if sheet contains 0 row
+	if len(sheet.Rows) == 0 {
+		return nil, &EmptySheetError{}
+	}
+	xlsxHeader := sheet.Rows[0]
 
 	for header, tagInfo := range tagInfoMap.M {
 		exist := true
