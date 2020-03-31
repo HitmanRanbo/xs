@@ -24,6 +24,7 @@ func getSTypes(s interface{}) reflect.Type {
 	}
 }
 
+//store the information of tag
 type TagInfo struct {
 	Index       int
 	Format      string
@@ -31,6 +32,9 @@ type TagInfo struct {
 	Omitempty   bool
 }
 
+//store the information of all tags.
+//Headers is a array of tag
+//M map the tag and tag's TagInfo
 type TagInfoMap struct {
 	Headers []string
 	M       map[string]TagInfo
@@ -47,6 +51,7 @@ func getHeaderAndFormat(headerWithFormat string) (string, string, bool) {
 	return data[0], data[1], false
 }
 
+//get the information of all tags
 func GetTagInfo(s interface{}) TagInfoMap {
 	var sTypes = getSTypes(s)
 	var m = make(map[string]TagInfo)

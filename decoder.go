@@ -36,7 +36,6 @@ func decode(mList []map[string]*xlsx.Cell, tagInfo TagInfoMap, s interface{}) er
 					return err
 				}
 				elem.Elem().Field(tagInfo.M[k].Index).Set(reflect.ValueOf(value))
-				break
 			default:
 				value := strings.TrimRight(v.String(), " ")
 				elem.Elem().Field(tagInfo.M[k].Index).Set(reflect.ValueOf(value))

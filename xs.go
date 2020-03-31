@@ -8,6 +8,9 @@ import (
 	"strings"
 )
 
+// UnmarshalFromFile read the xlsx file and parses the data and stores the result
+// in the value pointed to by v. If v is nil or not a pointer,
+// Unmarshal returns an InvalidUnmarshalError.
 func UnmarshalFromFile(filePath string, ss ...interface{}) error {
 	xlFile, err := xlsx.OpenFile(filePath)
 	if err != nil {
@@ -17,6 +20,9 @@ func UnmarshalFromFile(filePath string, ss ...interface{}) error {
 	return unmarshal(xlFile, ss...)
 }
 
+// Unmarshal parses the xlsx data and stores the result
+// in the value pointed to by v. If v is nil or not a pointer,
+// Unmarshal returns an InvalidUnmarshalError.
 func Unmarshal(body []byte, ss ...interface{}) error {
 	xlFile, err := xlsx.OpenBinary(body)
 	if err != nil {
@@ -26,6 +32,9 @@ func Unmarshal(body []byte, ss ...interface{}) error {
 	return unmarshal(xlFile, ss...)
 }
 
+// Marshal read the data from the slice of struct
+// and write it into xlsx file. Every slice of struct
+// will be written in a sheet
 func Marshal(ss ...interface{}) ([]byte, error) {
 	var buf bytes.Buffer
 
