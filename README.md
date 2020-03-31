@@ -4,6 +4,7 @@ xs
 [![Travis Status for KarlTango/xs](https://travis-ci.org/KarlTango/xs.svg?branch=master&label=linux+build)](https://travis-ci.org/github/KarlTango/xs)
 [![codecov for KarlTango/xs](https://codecov.io/gh/KarlTango/xs/branch/master/graph/badge.svg)](https://codecov.io/gh/KarlTango/xs)
 [![Go Report Card](https://goreportcard.com/badge/github.com/KarlTango/xs)](https://goreportcard.com/report/github.com/KarlTango/xs)
+[![GolangCI](https://golangci.com/badges/github.com/KarlTango/xs.svg)](https://golangci.com)
 
 Installation
 ------------
