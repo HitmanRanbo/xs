@@ -20,7 +20,7 @@ func encode(sheet *xlsx.Sheet, tagInfo TagInfoMap, sValues reflect.Value) {
 	for line := 0; line < sValues.Len(); line++ {
 		//init row
 		sheetRow := sheet.AddRow()
-		sheetRow.Cells = make([]*xlsx.Cell, len(tagInfo.Headers), len(tagInfo.Headers))
+		sheetRow.Cells = make([]*xlsx.Cell, len(tagInfo.Headers))
 
 		row := sValues.Index(line)
 		for _, v := range tagInfo.Headers {

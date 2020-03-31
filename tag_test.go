@@ -15,7 +15,7 @@ func TestGetTagInfo(t *testing.T) {
 	}
 
 	for i := 0; i <= 100; i++ {
-		l := make([]L, 10, 10)
+		l := make([]L, 10)
 
 		for i := 0; i < 10; i++ {
 			l[i] = L{
@@ -51,7 +51,7 @@ func TestGetTags(t *testing.T) {
 	}
 
 	for i := 0; i <= 100; i++ {
-		l := make([]L, 10, 10)
+		l := make([]L, 10)
 
 		for i := 0; i < 10; i++ {
 			l[i] = L{

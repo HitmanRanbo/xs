@@ -70,7 +70,7 @@ func unmarshal(xlFile *xlsx.File, ss ...interface{}) error {
 
 		//逐行读xlsx文件，并转化成结构体
 		//preprocess excel
-		mList := make([]map[string]*xlsx.Cell, maxRow, maxRow)
+		mList := make([]map[string]*xlsx.Cell, maxRow)
 		for i := 0; i < maxRow; i++ {
 			row := sheet.Rows[i+1]
 			m := make(map[string]*xlsx.Cell, len(tagInfo.Headers))

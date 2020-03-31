@@ -64,7 +64,7 @@ func Test_Xs(t *testing.T) {
 
 	length := 30
 
-	l := make([]L, length, length)
+	l := make([]L, length)
 
 	for i := 0; i < length; i++ {
 		l[i] = L{

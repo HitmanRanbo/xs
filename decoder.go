@@ -18,21 +18,18 @@ func decode(mList []map[string]*xlsx.Cell, tagInfo TagInfoMap, s interface{}) er
 			case reflect.Bool:
 				value := v.Bool()
 				elem.Elem().Field(tagInfo.M[k].Index).Set(reflect.ValueOf(value))
-				break
 			case reflect.Int:
 				value, err := v.Int()
 				if err != nil {
 					return err
 				}
 				elem.Elem().Field(tagInfo.M[k].Index).Set(reflect.ValueOf(value))
-				break
 			case reflect.Int64:
 				value, err := v.Int64()
 				if err != nil {
 					return err
 				}
 				elem.Elem().Field(tagInfo.M[k].Index).Set(reflect.ValueOf(value))
-				break
 			case reflect.Float64:
 				value, err := v.Float()
 				if err != nil {

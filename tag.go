@@ -49,7 +49,7 @@ func getHeaderAndFormat(headerWithFormat string) (string, string, bool) {
 
 func GetTagInfo(s interface{}) TagInfoMap {
 	var sTypes = getSTypes(s)
-	var m = make(map[string]TagInfo, 0)
+	var m = make(map[string]TagInfo)
 	var headers = make([]string, 0)
 
 	for i := 0; i < sTypes.NumField(); i++ {
@@ -71,7 +71,7 @@ func GetTagInfo(s interface{}) TagInfoMap {
 
 //parse tags. return map[string]bool, which key is tag and value is if the tag is necessary
 func GetTags(s interface{}) map[string]bool {
-	var headers = make(map[string]bool, 0)
+	var headers = make(map[string]bool)
 	var tagInfo = GetTagInfo(s)
 
 	for _, header := range tagInfo.Headers {
