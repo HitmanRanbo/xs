@@ -5,6 +5,7 @@ xs
 [![codecov for KarlTango/xs](https://codecov.io/gh/KarlTango/xs/branch/master/graph/badge.svg)](https://codecov.io/gh/KarlTango/xs)
 [![Go Report Card](https://goreportcard.com/badge/github.com/KarlTango/xs)](https://goreportcard.com/report/github.com/KarlTango/xs)
 [![GolangCI](https://golangci.com/badges/github.com/KarlTango/xs.svg)](https://golangci.com)
+[![Release](https://img.shields.io/github/release/KarlTango/xs.svg?label=Release)](https://github.com/KarlTango/xs/releases)
 
 Installation
 ------------
