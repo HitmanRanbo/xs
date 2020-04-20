@@ -7,35 +7,35 @@ xs
 [![GolangCI](https://golangci.com/badges/github.com/KarlTango/xs.svg)](https://golangci.com)
 [![Release](https://img.shields.io/github/release/KarlTango/xs.svg?label=Release)](https://github.com/KarlTango/xs/releases)
 
-[简体中文](README_ZH.md)
+[English](README.md)
 
-Installation
-------------
+安装
+---
 
     go get github.com/KarlTango/xs
 
-Requirements
--------------
+依赖
+---
 
 * github.com/tealeg/xlsx
 
-Index
-------
+目录
+---
 
-1. [Examples](#examples)
+1. [例子](#examples)
 	1. [Unmarshal](#examples_unmarshal)
    	2. [Marshal](#examples_marshal)
 
-Examples <a name="examples"></a>
---------
+例子 <a name="examples"></a>
+-------------------------
 
 ### Unmarshal <a name="examples_unmarshal"></a>
-**If you wan to get message from a excel file like this:**
+**如果你有一个像这样的excel:**
 
 ![Excel file](example/excel.png "Excel")
-(Excel could be found in example folder).
+(样例文件放在 example 文件夹下).
 
-**You could define struct with xs tag to map struct key excel column name**
+**首先你可以定义一个结构体， 其中xs tag 对应着excel的表头**
 ```golang
 type User struct {
 	Username string `xs:"Username"`
@@ -44,13 +44,13 @@ type User struct {
 }
 ```
 
-**and then you can use UnmarshalFromFile**
+**然后你可以使用 UnmarshalFromFile方法将一个指定路径的excel文件反序列化为go struct**
 ```golang
 var users = make([]User, 0)
 filePath := "example/test.xlsx"
 err := UnmarshalFromFile(filePath, &users)
 ```
-**or use Unmarshal**
+**或者使用 Unmarshal方法将一个字节数组反序列化为go struct**
 ```golang
 var users = make([]User, 0)
 filePath := "example/test.xlsx"
@@ -60,8 +60,8 @@ err = Unmarshal(body, &users)
 
 
 ### Marshal <a name="examples_marshal"></a>
-**The other way round, if you want to write a excel from go struct slice, you can use Marshal**
-#### Mutiple sheet
+**同样的，你可以使用 Marshal方法来将你的结构体数组写入到一个excel文件中**
+#### 你可以传递多个结构体数组，他们会被同时写入一个excel的不同sheet中
 ```golang
 type User struct {
 	Username string `xs:"Username"`
