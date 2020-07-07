@@ -23,7 +23,7 @@ func encode(sheet *xlsx.Sheet, tagInfo TagInfoMap, sValues reflect.Value) {
 		sheetRow.Cells = make([]*xlsx.Cell, len(tagInfo.Headers))
 
 		row := sValues.Index(line)
-		for _, v := range tagInfo.Headers {
+		for index, v := range tagInfo.Headers {
 			cell := &xlsx.Cell{}
 			data := row.Field(tagInfo.M[v].Index)
 			switch t := data.Interface().(type) {
@@ -64,7 +64,7 @@ func encode(sheet *xlsx.Sheet, tagInfo TagInfoMap, sValues reflect.Value) {
 			if tagInfo.M[v].Format != "" {
 				cell.SetFormat(tagInfo.M[v].Format)
 			}
-			sheetRow.Cells[tagInfo.M[v].Index] = cell
+			sheetRow.Cells[index] = cell
 		}
 	}
 }

@@ -7,10 +7,22 @@ import (
 	"testing"
 )
 
+type Student struct {
+	Empty0 int
+	Grade  int `xs:"Grade"`
+	Empty1 string
+	Class  int `xs:"Class"`
+	Empty2 bool
+}
+
 type User struct {
+	Empty0 int
+	Student
 	Username string `xs:"Username"`
 	Age      int    `xs:"Age"`
+	Empty1   string
 	Sex      string `xs:"Sex"`
+	Empty2   bool
 }
 
 func TestUnmarshalFromFile(t *testing.T) {
@@ -40,13 +52,16 @@ func TestUnmarshal(t *testing.T) {
 }
 
 type User2 struct {
-	Username string  `xs:"Username"`
+	Empty0   int
+	Username string `xs:"Username"`
+	Empty1   string
 	Salary   float64 `xs:"Salary"`
+	Empty2   bool
 }
 
 func TestMarshal(t *testing.T) {
-	users := []User{{"Karl", 25, "Male"}, {"Ann", 18, "Female"}}
-	users2 := []User2{{"Karl", 8000.00}, {"Ann", 9999.50}}
+	users := []User{{Student: Student{Grade: 6, Class: 5}, Username: "Karl", Age: 25, Sex: "Male"}, {Student: Student{Grade: 7, Class: 5}, Username: "Ann", Age: 19, Sex: "Female"}}
+	users2 := []User2{{Username: "Karl", Salary: 8000.00}, {Username: "Ann", Salary: 9999.50}}
 	body, err := Marshal(users, users2)
 	assert.NoError(t, err)
 	err = ioutil.WriteFile("user.xlsx", body, 06666)
