@@ -51,14 +51,14 @@ func encode(sheet *xlsx.Sheet, tagInfo TagInfoMap, sValues reflect.Value) {
 				switch data.Kind() {
 				case reflect.String, reflect.Int, reflect.Int8,
 					reflect.Int16, reflect.Int32, reflect.Int64, reflect.Float64, reflect.Float32:
+					cell.SetValue(data.Interface())
 					if tagInfo.M[v].IsHyperlink && data.Interface().(string) != "" {
-						cell.SetFormula(fmt.Sprintf(`=HYPERLINK("%s", "%s")`, data.Interface().(string), data.Interface().(string)))
+						cell.SetStringFormula(fmt.Sprintf(`=HYPERLINK("%s", "%s")`, data.Interface().(string), data.Interface().(string)))
 						style := cell.GetStyle()
 						style.Font.Underline = true   //加下划线
 						style.Font.Color = "FF0000FF" //设置字体颜色为蓝色
 						cell.SetStyle(style)
 					}
-					cell.SetValue(data.Interface())
 				case reflect.Bool:
 					cell.SetBool(t.(bool))
 				default:
