@@ -37,7 +37,7 @@ func decode(mList []map[string]*xlsx.Cell, tagInfo TagInfoMap, s interface{}) er
 				}
 				elem.Elem().Field(tagInfo.M[k].Index).Set(reflect.ValueOf(value))
 			default:
-				value := strings.TrimRight(v.String(), " ")
+				value := strings.TrimSpace(v.String())
 				elem.Elem().Field(tagInfo.M[k].Index).Set(reflect.ValueOf(value))
 			}
 		}
